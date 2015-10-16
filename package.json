@@ -1,0 +1,23 @@
+{
+  "name": "pallium-export",
+  "version": "0.0.1",
+  "description": "Export directories from a Pallium CMS site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spleenboy/pallium-export.git"
+  },
+  "author": "Alex Barrett",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spleenboy/pallium-export/issues"
+  },
+  "homepage": "https://github.com/spleenboy/pallium-export",
+  "dependencies": {
+    "tar.gz": "^1.0.1",
+    "browserify": "^11.2.0"
+  }
+}
