@@ -35,24 +35,27 @@ Controller.prototype.download = function() {
 
 
 Controller.prototype.compress = function() {
-    var broadcast = this.app.io.broadcast.bind(this.app.io);
-    var id = this.request.params.id;
+    var respond = this.request.io.emit.bind(this.request.io);
+    var id = this.request.data;
     var data = directories.find(id);
+
+    if (!id || !data) {
+        return respond('export/error', {error:'Invalid id'});
+    }
 
     function done(dest, err) {
         if (err) {
             log.error('Could not compress!', dest, err);
             data.error = err;
-            broadcast('export.error', data);
+            respond('export/error', data);
         } else {
             log.info('Compressed!', dest, err);
-            broadcast('export.compressed', data);
+            respond('export/compressed', data);
         }
     }
 
     directories.compress(id, done);
-    this.response.status = 200;
-    return this.response.send('');
+    return respond('export.compressing', id);
 };
 
 module.exports = Controller;

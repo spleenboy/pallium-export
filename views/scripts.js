@@ -7,9 +7,7 @@
             return;
         }
 
-        if (io.connect) {
-            io = io.connect();
-        }
+        var socket = io.connect();
 
         $('#exporter').on('click', 'a[data-exports]', function(e) {
             e.preventDefault();
@@ -17,14 +15,13 @@
 
             var $link = $(e.currentTarget);
             $link.attr('disabled', 'disabled');
-            var href  = $link.data('href');
 
-            $.get(href);
+            socket.emit('export/compress', $link.data('exports'));
 
             return false;
         });
 
-        io.on('export.compressed', function(data) {
+        socket.on('export/compressed', function(data) {
             $('a[data-exports=' + data.id + ']').removeAttr('disabled');
             if (confirm("Your " + data.name + " download is ready!")) {
                 window.location = '/use/export/download/' + data.id;
