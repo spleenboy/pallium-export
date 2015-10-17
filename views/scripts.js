@@ -1,4 +1,4 @@
-module.exports = function() {
+(function() {
     var $ = require('jquery');
     $(function() {
         if (!io) {
@@ -7,20 +7,22 @@ module.exports = function() {
             return;
         }
 
+        if (io.connect) {
+            io = io.connect();
+        }
+
         $('#exporter').on('click', 'a[data-exports]', function(e) {
             e.preventDefault();
             e.stopPropagation();
 
             var $link = $(e.currentTarget);
             $link.attr('disabled', 'disabled');
-            var href  = $link.attr('href');
+            var href  = $link.data('href');
 
             $.get(href);
 
             return false;
         });
-
-        io = io.connect();
 
         io.on('export.compressed', function(data) {
             $('a[data-exports=' + data.id + ']').removeAttr('disabled');
@@ -29,4 +31,4 @@ module.exports = function() {
             }
         });
     });
-};
+})();

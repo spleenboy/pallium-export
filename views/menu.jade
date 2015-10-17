@@ -2,8 +2,6 @@ ul.pure-menu-list#exporter
     li.pure-menu-heading Export
     each item in directories
         li.pure-menu-item
-            a.pure-menu-link.pure-button(href='/use/export/compress/' + item.id, data-exports=item.id)
+            a.pure-menu-link.pure-button(data-href='/use/export/compress/' + item.id, data-exports=item.id)
                 i.fa.fa-download
-                != item.name
-
-script(src='/use/export/asset/bundle.js')
+                != item.name 

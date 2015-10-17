@@ -39,6 +39,7 @@ Directories.prototype.compress = function(id, callback) {
 
     future.schedule(dest, expired, this.expiration);
 
+    log.info("Starting compression of directory", dir, "to", dest);
     return targz().compress(dir, dest)
         .then(function() {
             self.compressed[id] = dest;
