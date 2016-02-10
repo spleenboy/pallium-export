@@ -17,8 +17,8 @@ module.exports = function(hooks, app) {
     });
 
     // Register routes
-    hooks.on('app/bootstrap/routes/registering', function(event) {
-        event.routers[id] = router(event);
+    hooks.on('app/bootstrap/routes/registering', function(register) {
+         register(id, router);
     });
 
     // Add menu items
